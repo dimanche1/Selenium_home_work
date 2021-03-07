@@ -3,13 +3,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
-public class Exercise1 {
+public class Exercise2 {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -21,14 +20,12 @@ public class Exercise1 {
     }
 
     @Test
-    public void exercise1()
+    public void exercise2()
     {
-//        driver.get("https://www.google.com");
-        driver.navigate().to("https://www.google.com");
-        WebElement q = driver.findElement(By.name("q"));
-        q.sendKeys("selenium");
-        driver.findElement(By.name("btnK")).click();
-        wait.until(titleIs("selenium - Поиск в Google"));
+        driver.get("http://localhost/litecart/admin/");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
     }
 
     @After
@@ -36,5 +33,4 @@ public class Exercise1 {
         driver.quit();
         driver = null;
     }
-
 }
