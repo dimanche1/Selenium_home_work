@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
@@ -14,8 +15,10 @@ public class Exercise2 {
 
     @Before
     public void start(){
-        driver = new ChromeDriver();
-
+//        driver = new ChromeDriver();
+        // Set the driver path
+        System.setProperty("webdriver.edge.driver", "C://Distr//Selenium_drivers//msedgedriver.exe");
+        driver = new EdgeDriver();
         wait = new WebDriverWait(driver, 10);
     }
 
