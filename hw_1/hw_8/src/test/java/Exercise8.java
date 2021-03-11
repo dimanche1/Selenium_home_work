@@ -35,22 +35,6 @@ public class Exercise8 {
                 assertTrue(TestBase.isElementPresent(driver, locator) && (TestBase.numberOfElements(driver, locator) == 1));
             }
         }
-
-//        int size = driver.findElements(By.cssSelector("li[id*=app-] >a")).size();
-//        if (size > 0) {
-//            for (int i = 1; i <= size; i++) {
-//                driver.findElement(By.cssSelector("li[id*=app-]:nth-child(" + i + ") >a")).click();
-//                assertTrue(TestBase.isElementPresent(driver, By.tagName("h1")));
-//
-//                int sizeInnEls = driver.findElements(By.cssSelector("li[id*=doc-] >a")).size();
-//                if(sizeInnEls > 0) {
-//                    for (int j = 1; j <= sizeInnEls; j++){
-//                        driver.findElement(By.cssSelector("li[id*=doc-]:nth-child(" + j + ") >a")).click();
-//                        assertTrue(TestBase.isElementPresent(driver, By.tagName("h1")));
-//                    }
-//                }
-//            }
-//        }
     }
 
     @After
