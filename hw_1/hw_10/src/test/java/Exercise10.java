@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -60,17 +62,27 @@ public class Exercise10 {
         // Check regular price
         WebElement regularPrice = baseEl.findElement(By.cssSelector(".regular-price"));
         duck.regularPrice = regularPrice.getText();
-        assertEquals("line-through", regularPrice.getCssValue("text-decoration-line"));
+        assertEquals("Check line through regular price", "line-through", regularPrice.getCssValue("text-decoration-line"));
         assertTrue("RGB: all channels are equal",
                 checkRGBChannelsEquality(regularPrice.getCssValue("text-decoration-color")));
 
         // Check campaign price
         WebElement campaignPrice = baseEl.findElement(By.cssSelector(".campaign-price"));
         duck.campaignPrice = campaignPrice.getText();
+        assertTrue("RGB: some redness indeed", checkRGBChannelsRedness(campaignPrice.getCssValue("color")));
+        assertEquals("Check boldness at campaign price", "strong", campaignPrice.getTagName());
 
+        // Size comparison. regular price vs. campaign one
         assertTrue("The regular price is less than campaign one",
                 Integer.parseInt(regularPrice.getCssValue("font-weight")) <
                         Integer.parseInt(campaignPrice.getCssValue("font-weight")));
+
+
+//        System.out.println(Integer.parseInt(regularPrice.getCssValue("font-weight")));
+//        System.out.println(Integer.parseInt(campaignPrice.getCssValue("font-weight")));
+//        System.out.println(campaignPrice.getCssValue("font-size"));
+//        System.out.println(getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
+//        System.out.println(getOnlyFloatFromString(regularPrice.getCssValue("font-size")));
 
         return duck;
     }
@@ -101,10 +113,20 @@ public class Exercise10 {
         }
     }
 
-    // Strings like rgb(119, 119, 119)
+    // Strings like "rgb(119, 119, 119)"
     private boolean checkRGBChannelsEquality(String rgb) {
         return rgb.substring(4,7).equals(rgb.substring(9,12)) &&
                 rgb.substring(9,12).equals(rgb.substring(14,17));
+    }
+
+    // Strings like "r0.g1.b2.(3.119, 0, 0)"
+    private boolean checkRGBChannelsRedness(String rgb) {
+        List<String> sep_rgb = Arrays.asList(rgb.substring(4,17).split(","));
+        return sep_rgb.get(1).equals(sep_rgb.get(2));
+    }
+
+    private float getOnlyFloatFromString(String str) {
+        return Float.parseFloat(str.replaceAll("\\D+", ""));
     }
 }
 
