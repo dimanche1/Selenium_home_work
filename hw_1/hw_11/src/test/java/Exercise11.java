@@ -51,9 +51,9 @@ public class Exercise11 {
         driver.findElement(By.name("city")).sendKeys(city);
 
         driver.findElement(By.cssSelector(".select2-selection__arrow")).click();
-        WebElement searchCountryField = driver.findElement(By.cssSelector("input.select2-search__field"));
-        searchCountryField.sendKeys("United States");
-        searchCountryField.sendKeys(Keys.ENTER);
+        WebElement searchField = driver.findElement(By.cssSelector("input.select2-search__field"));
+        searchField.sendKeys("United States");
+        searchField.sendKeys(Keys.ENTER);
 
         driver.findElement(By.name("email")).sendKeys(email);
         driver.findElement(By.name("phone")).sendKeys(phone);
