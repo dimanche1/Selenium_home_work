@@ -73,10 +73,15 @@ public class Exercise10 {
         assertEquals("Check boldness at campaign price", "strong", campaignPrice.getTagName());
 
         // Size comparison. regular price vs. campaign one
-        assertTrue("The regular price is less than campaign one",
-                Integer.parseInt(regularPrice.getCssValue("font-weight")) <
-                        Integer.parseInt(campaignPrice.getCssValue("font-weight")));
+//        assertTrue("The regular price is less than campaign one",
+//                Integer.parseInt(regularPrice.getCssValue("font-weight")) <
+//                        Integer.parseInt(campaignPrice.getCssValue("font-weight")));
 
+//        assertTrue("The regular price is less than campaign one",
+//                getOnlyFloatFromString(regularPrice.getCssValue("font-size")) <
+//                        getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
+            System.out.println(getOnlyFloatFromString(regularPrice.getCssValue("font-size")));
+        System.out.println(getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
 
 //        System.out.println(Integer.parseInt(regularPrice.getCssValue("font-weight")));
 //        System.out.println(Integer.parseInt(campaignPrice.getCssValue("font-weight")));
@@ -121,8 +126,9 @@ public class Exercise10 {
 
     // Strings like "r0.g1.b2.(3.119, 0, 0)"
     private boolean checkRGBChannelsRedness(String rgb) {
-        List<String> sep_rgb = Arrays.asList(rgb.substring(4,17).split(","));
-        return sep_rgb.get(1).equals(sep_rgb.get(2));
+        List<String> sep_rgb = Arrays.asList(rgb.substring(4,17).replaceAll("\\s", "").split(","));
+        return (Integer.parseInt(sep_rgb.get(1)) == Integer.parseInt(sep_rgb.get(2))) &&
+                Integer.parseInt(sep_rgb.get(2)) == 0;
     }
 
     private float getOnlyFloatFromString(String str) {
