@@ -28,16 +28,19 @@ public class Exercise13 {
 
     @Test
     public void testExercise13() {
-        AtomicInteger itemsInCart = new AtomicInteger();
 
         driver.get("http://localhost/litecart/en/rubber-ducks-c-1/");
 
+        // Links to all products
         List <String> linksToProducts = driver.
                 findElements(By.cssSelector("ul.listing-wrapper.products li.product a.link"))
                 .stream().map(el -> el.getAttribute("href")).collect(Collectors.toList());
 
+        // Number of items in the cart to be count in the following lambda function
+        AtomicInteger itemsInCart = new AtomicInteger();
         itemsInCart.set(Integer.parseInt(driver.findElement(By.cssSelector("div#cart span.quantity")).getText()));
 
+        // Add products in the cart
         linksToProducts.forEach(link -> {
                   if(itemsInCart.get() < 4) {
                     driver.get(link);
@@ -49,8 +52,10 @@ public class Exercise13 {
                 }
         });
 
+        // Checkout
         driver.findElement(By.cssSelector("a.link[href*=checkout]")).click();
 
+        // Names of the products for checking
         List<String> namesOfProductsInCart = driver.findElements(By
                 .cssSelector("div#order_confirmation-wrapper tr td.item"))
                 .stream().map(el -> el.getText())
@@ -58,6 +63,7 @@ public class Exercise13 {
 
         int allElmsButNotLast =namesOfProductsInCart.size() - 1;
 
+        // Deletes all thr products but leaves the last one for special treatment
         for (int i = 0; i < allElmsButNotLast; i++) {
             driver.findElement(By.cssSelector("div#box-checkout-cart ul.shortcuts a")).click();
             wait.until(ExpectedConditions
