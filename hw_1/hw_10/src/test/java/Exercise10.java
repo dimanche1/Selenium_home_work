@@ -62,7 +62,9 @@ public class Exercise10 {
         // Check regular price
         WebElement regularPrice = baseEl.findElement(By.cssSelector(".regular-price"));
         duck.regularPrice = regularPrice.getText();
-        assertEquals("Check line through regular price", "line-through", regularPrice.getCssValue("text-decoration-line"));
+//        assertEquals("Check line through regular price", "line-through", regularPrice.getCssValue("text-decoration-line"));
+        assertEquals("Check line through regular price",
+                "s", regularPrice.getTagName());
         assertTrue("RGB: all channels are equal",
                 checkRGBChannelsEquality(regularPrice.getCssValue("text-decoration-color")));
 

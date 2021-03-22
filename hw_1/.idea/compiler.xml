@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hw_9" />
-        <module name="hw_8" />
+        <module name="hw_12" />
         <module name="hw_11" />
         <module name="hw_2" />
         <module name="hw_7" />
+        <module name="hw_9" />
+        <module name="hw_8" />
         <module name="hw_10" />
       </profile>
     </annotationProcessing>
