@@ -47,7 +47,7 @@ public class Exercise13 {
                     driver.findElement(By.cssSelector("button[name=add_cart_product]")).click();
                     itemsInCart.addAndGet(1);
                     wait.until(ExpectedConditions
-                            .textToBePresentInElementLocated(By.cssSelector("div#cart span.quantity"),
+                        .textToBePresentInElementLocated(By.cssSelector("div#cart span.quantity"),
                                     itemsInCart.toString()));
                 }
         });
@@ -63,16 +63,27 @@ public class Exercise13 {
 
         int allElmsButNotLast =namesOfProductsInCart.size() - 1;
 
+        // Stop scrolling by clicking a product
+        driver.findElement(By.cssSelector("div#box-checkout-cart ul.shortcuts a")).click();
         // Deletes all thr products but leaves the last one for special treatment
         for (int i = 0; i < allElmsButNotLast; i++) {
             driver.findElement(By.cssSelector("div#box-checkout-cart ul.shortcuts a")).click();
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             wait.until(ExpectedConditions
                             .textToBePresentInElementLocated(By.cssSelector(String
                                     .format("div p a strong", namesOfProductsInCart.get(i))),
                                     namesOfProductsInCart.get(i)));
+
+            WebElement elToDelete = driver.findElement(By.xpath(String
+                    .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(i))));
+
             driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
-            wait.until(ExpectedConditions.invisibilityOfElementWithText
-                    (By.cssSelector("div#order_confirmation-wrapper tr td.item"), namesOfProductsInCart.get(i)));
+
+            wait.until(ExpectedConditions.invisibilityOf(elToDelete));
         }
 
         // Delete last product
@@ -80,9 +91,11 @@ public class Exercise13 {
                 .textToBePresentInElementLocated(By.cssSelector(String
                                 .format("div p a strong", namesOfProductsInCart.get(allElmsButNotLast))),
                         namesOfProductsInCart.get(allElmsButNotLast)));
+
+        WebElement elToDelete = driver.findElement(By.xpath(String
+                .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(allElmsButNotLast))));
         driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
-        wait.until(ExpectedConditions.invisibilityOfElementWithText
-                (By.cssSelector("div#order_confirmation-wrapper tr td.item"), namesOfProductsInCart.get(allElmsButNotLast)));
+        wait.until(ExpectedConditions.invisibilityOf(elToDelete));
 
         assertEquals("Expect: There are no items in your cart.",
                 driver.findElement(By.cssSelector("div#checkout-cart-wrapper p em")).getText(),
@@ -123,3 +136,5 @@ public class Exercise13 {
 ////                    el.click();
 ////                    driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
 //                });
+//            wait.until(ExpectedConditions.invisibilityOfElementWithText
+//                    (By.cssSelector("div#order_confirmation-wrapper tr td.item"), namesOfProductsInCart.get(i)));
