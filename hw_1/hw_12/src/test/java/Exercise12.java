@@ -31,7 +31,7 @@ public class Exercise12 {
     }
 
     @Test
-    public void testExercise7() {
+    public void testExercise12() {
 
         final int TIME_WAIT = 2000;
 
