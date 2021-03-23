@@ -83,7 +83,8 @@ public class Exercise13 {
 
             driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
 
-            wait.until(ExpectedConditions.invisibilityOf(elToDelete));
+//            wait.until(ExpectedConditions.invisibilityOf(elToDelete));
+            wait.until(ExpectedConditions.stalenessOf(elToDelete));
         }
 
         // Delete last product
@@ -95,7 +96,7 @@ public class Exercise13 {
         WebElement elToDelete = driver.findElement(By.xpath(String
                 .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(allElmsButNotLast))));
         driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
-        wait.until(ExpectedConditions.invisibilityOf(elToDelete));
+        wait.until(ExpectedConditions.stalenessOf(elToDelete));
 
         assertEquals("Expect: There are no items in your cart.",
                 driver.findElement(By.cssSelector("div#checkout-cart-wrapper p em")).getText(),
