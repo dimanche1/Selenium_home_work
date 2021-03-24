@@ -1,13 +1,19 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.StringSeqHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,10 +24,18 @@ import static org.junit.Assert.assertTrue;
 public class Exercise10 {
     private WebDriver driver;
     private WebDriverWait wait;
+    // Chrome, Edge
+    private final String Browser = "Edge";
 
     @Before
     public void start() {
-        driver = new ChromeDriver();
+        if (Browser.equals("Chrome")) {
+            driver = new ChromeDriver();
+        } else if (Browser.equals("Edge")) {
+            System.setProperty("webdriver.edge.driver", "src//test//resources//msedgedriver.exe");
+            driver = new EdgeDriver();
+        }
+
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -74,22 +88,9 @@ public class Exercise10 {
         assertTrue("RGB: some redness indeed", checkRGBChannelsRedness(campaignPrice.getCssValue("color")));
         assertEquals("Check boldness at campaign price", "strong", campaignPrice.getTagName());
 
-        // Size comparison. regular price vs. campaign one
-//        assertTrue("The regular price is less than campaign one",
-//                Integer.parseInt(regularPrice.getCssValue("font-weight")) <
-//                        Integer.parseInt(campaignPrice.getCssValue("font-weight")));
-
-//        assertTrue("The regular price is less than campaign one",
-//                getOnlyFloatFromString(regularPrice.getCssValue("font-size")) <
-//                        getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
-            System.out.println(getOnlyFloatFromString(regularPrice.getCssValue("font-size")));
-        System.out.println(getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
-
-//        System.out.println(Integer.parseInt(regularPrice.getCssValue("font-weight")));
-//        System.out.println(Integer.parseInt(campaignPrice.getCssValue("font-weight")));
-//        System.out.println(campaignPrice.getCssValue("font-size"));
-//        System.out.println(getOnlyFloatFromString(campaignPrice.getCssValue("font-size")));
-//        System.out.println(getOnlyFloatFromString(regularPrice.getCssValue("font-size")));
+         // Size comparison
+        assertTrue("", (regularPrice.getSize().height < campaignPrice.getSize().height)
+        && (regularPrice.getSize().width < campaignPrice.getSize().width));
 
         return duck;
     }
