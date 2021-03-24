@@ -17,13 +17,15 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Exercise17 {
-    private EventFiringWebDriver driver;
+//    private EventFiringWebDriver driver;
+    private  WebDriver driver;
     private WebDriverWait wait;
 
     @Before
     public void start() {
-        driver = new EventFiringWebDriver(new ChromeDriver());
-        driver.register(new browserLogListener());
+//        driver = new EventFiringWebDriver(new ChromeDriver());
+//        driver.register(new browserLogListener());
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -52,8 +54,9 @@ public class Exercise17 {
 
         links.forEach(link -> {
             driver.get(link);
-            driver.manage().logs().get("browser").filter(Level.ALL).forEach(log -> {
-                System.out.println(String.format("log after navigate to %s: %s", driver.getCurrentUrl(), log));
+            driver.manage().logs().get("browser").getAll().forEach(log -> {
+                System.out.println(String.format("log after navigate to %s: %s", driver.getCurrentUrl(), log.getMessage()));
+                Assert.fail("Browser's logs contains a message");
             });
         });
 
@@ -65,16 +68,16 @@ public class Exercise17 {
         driver = null;
     }
 
-    public static class browserLogListener extends AbstractWebDriverEventListener {
-
-        @Override
-        public void afterClickOn(WebElement element, WebDriver driver) {
-            driver.manage().logs().get("browser").filter(Level.ALL).forEach(log -> {
-                    System.out.println(String.format("log after navigate to %s: %s", driver.getCurrentUrl(), log));
-                    if (log.getLevel() == Level.SEVERE) {
-                        Assert.fail("There is error in browser's logs");
-                    }
-            });
-        }
-    }
+//    public static class browserLogListener extends AbstractWebDriverEventListener {
+//
+//        @Override
+//        public void afterClickOn(WebElement element, WebDriver driver) {
+//            driver.manage().logs().get("browser").filter(Level.ALL).forEach(log -> {
+//                    System.out.println(String.format("log after navigate to %s: %s", driver.getCurrentUrl(), log));
+//                    if (log.getLevel() == Level.SEVERE) {
+//                        Assert.fail("There is error in browser's logs");
+//                    }
+//            });
+//        }
+//    }
 }
