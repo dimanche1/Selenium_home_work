@@ -15,6 +15,7 @@
         <module name="hw_17" />
         <module name="hw_9" />
         <module name="hw_8" />
+        <module name="hw_19" />
         <module name="hw_10" />
       </profile>
     </annotationProcessing>

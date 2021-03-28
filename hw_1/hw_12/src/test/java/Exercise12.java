@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class Exercise12 {
     private WebDriver driver;
     private WebDriverWait wait;
+    final int TIME_WAIT = 2000;
+    final int productsToCreate = 10;
 
     @Before
     public void start() {
@@ -33,16 +35,25 @@ public class Exercise12 {
     @Test
     public void testExercise12() {
 
-        final int TIME_WAIT = 2000;
+        loginToAdminPanel();
 
-        String UUID = java.util.UUID.randomUUID().toString();
-        String productName = "yellow_duck_" + UUID;
-        String procductCode = "code_" + UUID;
+        for(int i = 0; i < productsToCreate; i++) {
+            createProduct();
+        }
+    }
 
+    public void loginToAdminPanel() {
         driver.get("http://localhost/litecart/admin/");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
+    }
+
+    public void createProduct() {
+
+        String UUID = java.util.UUID.randomUUID().toString();
+        String productName = "yellow_duck_" + UUID;
+        String procductCode = "code_" + UUID;
 
         // Add new product
         wait(TIME_WAIT);

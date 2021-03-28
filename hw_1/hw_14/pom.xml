@@ -16,4 +16,18 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>net.lightbody.bmp</groupId>-->
+<!--            <artifactId>browsermob-core</artifactId>-->
+<!--            <version>2.1.5</version>-->
+<!--            <scope>test</scope>-->
+<!--&lt;!&ndash;            <exclusions>&ndash;&gt;-->
+<!--&lt;!&ndash;                <exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <artifactId>selenium-java</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;                </exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;            </exclusions>&ndash;&gt;-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 </project>

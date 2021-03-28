@@ -4,9 +4,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,7 +24,37 @@ public class Exercise13 {
 
     @Before
     public void start() {
+//        Proxy proxy = new Proxy();
+//        proxy.setHttpProxy("localhost:16687");
+//        DesiredCapabilities cap = new DesiredCapabilities();
+//        cap.setCapability("proxy", proxy);
+//        ChromeOptions caps = new ChromeOptions();
+//        caps.setCapability("proxy", proxy);
+//        caps.setProxy(proxy);
+//        caps.p`
+//        String proxy = "localhost:16687";
+//        ChromeOptions options = new ChromeOptions().addArguments("--proxy-server=http://" + proxy);
+//        Proxy proxy = new Proxy();
+//        proxy.setHttpProxy("localhost:16687");
+//        proxy.setSslProxy("localhost:16687");
+//
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//        capabilities.setCapability("proxy", proxy);
+//
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("start-maximized");
+//
+//        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+//        Proxy proxy = new Proxy();
+//        proxy.setHttpProxy("localhost:9375");
+//        ChromeOptions options = new ChromeOptions();
+//        options.setCapability("proxy", proxy);
+
+//        driver = new ChromeDriver(options);
         driver = new ChromeDriver();
+//        its works but litecart not
+//driver.get("http://www.rbc.ru");
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -29,8 +62,9 @@ public class Exercise13 {
     @Test
     public void testExercise13() {
 
+//        its works for local traffic
+//        driver.get("http://ipv4.fiddler/litecart/en/rubber-ducks-c-1/");
         driver.get("http://localhost/litecart/en/rubber-ducks-c-1/");
-
         // Links to all products
         List <String> linksToProducts = driver.
                 findElements(By.cssSelector("ul.listing-wrapper.products li.product a.link"))
