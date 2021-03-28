@@ -1,22 +1,38 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class Application extends TestBase{
+public class Application {
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    private ProductsPage productsPage;
+
+    public Application() {
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        productsPage = new ProductsPage(driver);
+    }
+
     public void addProductsToCart(){
         driver.get("http://localhost/litecart/en/rubber-ducks-c-1/");
         // Links to all products
-        List<String> linksToProducts = driver.
-                findElements(By.cssSelector("ul.listing-wrapper.products li.product a.link"))
+        List<String> linksToProducts = productsPage.linksToProductsOnPage()
                 .stream().map(el -> el.getAttribute("href")).collect(Collectors.toList());
 
         // Number of items in the cart to be count in the following lambda function
         AtomicInteger itemsInCart = new AtomicInteger();
-        itemsInCart.set(Integer.parseInt(driver.findElement(By.cssSelector("div#cart span.quantity")).getText()));
+        itemsInCart.set(Integer.parseInt(productsPage.getCartElement().getText()));
 
         // Add products in the cart
         linksToProducts.forEach(link -> {
@@ -73,5 +89,10 @@ public class Application extends TestBase{
                 .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(allElmsButNotLast))));
         driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
         wait.until(ExpectedConditions.stalenessOf(elToDelete));
+    }
+
+    public void stop() {
+        driver.quit();
+        driver = null;
     }
 }

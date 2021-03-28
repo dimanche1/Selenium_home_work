@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Selenium_home_work.iml" filepath="$PROJECT_DIR$/.idea/Selenium_home_work.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_1.iml" filepath="$PROJECT_DIR$/hw_1/hw_1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_10/hw_10.iml" filepath="$PROJECT_DIR$/hw_1/hw_10/hw_10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_11/hw_11.iml" filepath="$PROJECT_DIR$/hw_1/hw_11/hw_11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_12/hw_12.iml" filepath="$PROJECT_DIR$/hw_1/hw_12/hw_12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_13/hw_13.iml" filepath="$PROJECT_DIR$/hw_1/hw_13/hw_13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_14/hw_14.iml" filepath="$PROJECT_DIR$/hw_1/hw_14/hw_14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_17/hw_17.iml" filepath="$PROJECT_DIR$/hw_1/hw_17/hw_17.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_19/hw_19.iml" filepath="$PROJECT_DIR$/hw_1/hw_19/hw_19.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_2/hw_2.iml" filepath="$PROJECT_DIR$/hw_1/hw_2/hw_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_7/hw_7.iml" filepath="$PROJECT_DIR$/hw_1/hw_7/hw_7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_8/hw_8.iml" filepath="$PROJECT_DIR$/hw_1/hw_8/hw_8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw_1/hw_9/hw_9.iml" filepath="$PROJECT_DIR$/hw_1/hw_9/hw_9.iml" />
+    </modules>
+  </component>
+</project>
