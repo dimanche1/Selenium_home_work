@@ -1,3 +1,6 @@
+package test;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -8,13 +11,13 @@ public class Exercise19 extends TestBase {
     @Test
     public void testExercise19()
     {
-        app.addProductsToCart();
+        app.addProductsToCart(4);
 
         app.checkOut();
 
         app.deleteAllProductsInCart();
 
-        assertEquals("Expect: There are no items in your cart.",
+        Assert.assertEquals("Expect: There are no items in your cart.",
                 app.driver.findElement(By.cssSelector("div#checkout-cart-wrapper p em")).getText(),
                 "There are no items in your cart.");
 

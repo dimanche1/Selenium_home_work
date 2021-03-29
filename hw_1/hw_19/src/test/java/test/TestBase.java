@@ -1,5 +1,9 @@
+package test;
+
 import org.junit.After;
 import org.junit.Before;
+
+import app.Application;
 
 public class TestBase {
     public Application app;

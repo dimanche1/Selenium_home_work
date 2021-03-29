@@ -1,3 +1,5 @@
+package app;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,11 +12,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import page.*;
+
 public class Application {
     public WebDriver driver;
     public WebDriverWait wait;
 
     private ProductsPage productsPage;
+    private CheckoutPage checkoutPage;
 
     public Application() {
         driver = new ChromeDriver();
@@ -22,27 +27,27 @@ public class Application {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         productsPage = new ProductsPage(driver);
+        checkoutPage = new CheckoutPage(driver);
     }
 
-    public void addProductsToCart(){
+    public void addProductsToCart(int numberOfProductsToAdd){
         driver.get("http://localhost/litecart/en/rubber-ducks-c-1/");
         // Links to all products
-        List<String> linksToProducts = productsPage.linksToProductsOnPage()
+        List<String> linksToProducts = productsPage.linksToProductsOnPage
                 .stream().map(el -> el.getAttribute("href")).collect(Collectors.toList());
 
         // Number of items in the cart to be count in the following lambda function
         AtomicInteger itemsInCart = new AtomicInteger();
-        itemsInCart.set(Integer.parseInt(productsPage.getCartElement().getText()));
+        itemsInCart.set(Integer.parseInt(productsPage.getCartElement.getText()));
 
         // Add products in the cart
         linksToProducts.forEach(link -> {
-            if(itemsInCart.get() < 4) {
+            if(itemsInCart.get() < numberOfProductsToAdd) {
                 driver.get(link);
-                driver.findElement(By.cssSelector("button[name=add_cart_product]")).click();
+                productsPage.addProductButton.click();
                 itemsInCart.addAndGet(1);
                 wait.until(ExpectedConditions
-                        .textToBePresentInElementLocated(By.cssSelector("div#cart span.quantity"),
-                                itemsInCart.toString()));
+                        .textToBePresentInElement(productsPage.numberOfItemsInCart, itemsInCart.toString()));
             }
         });
     }
@@ -53,18 +58,17 @@ public class Application {
 
     public void deleteAllProductsInCart() {
         // Names of the products for checking
-        List<String> namesOfProductsInCart = driver.findElements(By
-                .cssSelector("div#order_confirmation-wrapper tr td.item"))
+        List<String> namesOfProductsInCart = checkoutPage.nameListOfProductsInCart
                 .stream().map(el -> el.getText())
                 .collect(Collectors.toList());
 
         int allElmsButNotLast =namesOfProductsInCart.size() - 1;
 
         // Stop scrolling by clicking a product
-        driver.findElement(By.cssSelector("div#box-checkout-cart ul.shortcuts a")).click();
+        checkoutPage.firstProductsMiniPicture.click();
         // Deletes all thr products but leaves the last one for special treatment
         for (int i = 0; i < allElmsButNotLast; i++) {
-            driver.findElement(By.cssSelector("div#box-checkout-cart ul.shortcuts a")).click();
+            checkoutPage.firstProductsMiniPicture.click();
 
             wait.until(ExpectedConditions
                     .textToBePresentInElementLocated(By.cssSelector(String
@@ -74,7 +78,7 @@ public class Application {
             WebElement elToDelete = driver.findElement(By.xpath(String
                     .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(i))));
 
-            driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
+            checkoutPage.removeCartItemButton.click();
 
             wait.until(ExpectedConditions.stalenessOf(elToDelete));
         }
@@ -87,7 +91,7 @@ public class Application {
 
         WebElement elToDelete = driver.findElement(By.xpath(String
                 .format("//td[contains(text(),'%s')]", namesOfProductsInCart.get(allElmsButNotLast))));
-        driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
+        checkoutPage.removeCartItemButton.click();
         wait.until(ExpectedConditions.stalenessOf(elToDelete));
     }
 
