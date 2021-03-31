@@ -23,4 +23,7 @@ public class CheckoutPage extends Page {
 
     @FindBy(css="button[name=remove_cart_item]")
     public  WebElement removeCartItemButton;
+
+    @FindBy(css="div#checkout-cart-wrapper p em")
+    public  WebElement containerForMsgOfEmptiness;
 }

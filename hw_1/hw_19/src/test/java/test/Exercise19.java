@@ -17,9 +17,7 @@ public class Exercise19 extends TestBase {
 
         app.deleteAllProductsInCart();
 
-        Assert.assertEquals("Expect: There are no items in your cart.",
-                app.driver.findElement(By.cssSelector("div#checkout-cart-wrapper p em")).getText(),
-                "There are no items in your cart.");
+        Assert.assertTrue("Expect: There are no items in your cart.", app.isCartEmpty());
 
         try {
             Thread.sleep(3000);

@@ -95,6 +95,10 @@ public class Application {
         wait.until(ExpectedConditions.stalenessOf(elToDelete));
     }
 
+    public boolean isCartEmpty() {
+        return checkoutPage.containerForMsgOfEmptiness.getText().equals("There are no items in your cart.");
+    }
+
     public void stop() {
         driver.quit();
         driver = null;
