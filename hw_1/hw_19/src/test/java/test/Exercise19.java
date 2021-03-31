@@ -2,9 +2,6 @@ package test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-
-import static org.junit.Assert.assertEquals;
 
 public class Exercise19 extends TestBase {
 
@@ -18,11 +15,5 @@ public class Exercise19 extends TestBase {
         app.deleteAllProductsInCart();
 
         Assert.assertTrue("Expect: There are no items in your cart.", app.isCartEmpty());
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
